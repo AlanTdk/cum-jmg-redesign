@@ -1,10 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-graduation.jpg";
+import { useCountUp } from "@/hooks/useCountUp";
+import ParticleEffect from "@/components/ParticleEffect";
 
 const HeroSection = () => {
+  const { count: yearsCount, ref: yearsRef } = useCountUp({ end: 33 });
+  const { count: graduatesCount, ref: graduatesRef } = useCountUp({ end: 70 });
+  const { count: partnershipsCount, ref: partnershipsRef } = useCountUp({ end: 30 });
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <ParticleEffect />
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -64,16 +71,22 @@ const HeroSection = () => {
           {/* Stats Cards */}
           <div className="lg:justify-self-end animate-slide-up">
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6 max-w-md">
-              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
-                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">33+</div>
+              <div ref={yearsRef} className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn pulse-on-hover">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform tabular-nums">
+                  {yearsCount}+
+                </div>
                 <div className="text-sm text-muted-foreground">Años de experiencia</div>
               </div>
-              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
-                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">70+</div>
+              <div ref={graduatesRef} className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn pulse-on-hover">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform tabular-nums">
+                  {graduatesCount}+
+                </div>
                 <div className="text-sm text-muted-foreground">Generaciones egresadas</div>
               </div>
-              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
-                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">30+</div>
+              <div ref={partnershipsRef} className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn pulse-on-hover">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform tabular-nums">
+                  {partnershipsCount}+
+                </div>
                 <div className="text-sm text-muted-foreground">Convenios en salud</div>
               </div>
             </div>

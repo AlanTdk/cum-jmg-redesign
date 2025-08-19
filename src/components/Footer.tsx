@@ -30,11 +30,10 @@ const Footer = () => {
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
-                  <span className="text-primary-foreground font-bold text-xl">C</span>
+                  <span className="text-primary-foreground font-bold text-lg">CUM</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-background">Centro Universitario</h3>
-                  <p className="text-background/70 text-sm">Mesoamericano</p>
+                  <h3 className="font-bold text-lg text-background">Centro Universitario Mesoamericano</h3>
                 </div>
               </div>
               <p className="text-background/70 mb-6 leading-relaxed">
