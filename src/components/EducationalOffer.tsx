@@ -10,6 +10,15 @@ import surgicalImage from "@/assets/surgical-nursing.jpg";
 const EducationalOffer = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Función para normalizar texto (sin acentos, minúsculas)
+  const normalizeText = (text: string) => {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, "");
+  };
+
   const programs = [
     {
       id: 1,
@@ -43,10 +52,16 @@ const EducationalOffer = () => {
     }
   ];
 
-  const filteredPrograms = programs.filter(program =>
-    program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    program.type.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPrograms = programs.filter(program => {
+    const normalizedSearch = normalizeText(searchTerm);
+    const normalizedTitle = normalizeText(program.title);
+    const normalizedType = normalizeText(program.type);
+    const normalizedFeatures = program.features.map(feature => normalizeText(feature)).join(" ");
+    
+    return normalizedTitle.includes(normalizedSearch) ||
+           normalizedType.includes(normalizedSearch) ||
+           normalizedFeatures.includes(normalizedSearch);
+  });
 
   return (
     <section id="oferta" className="py-20 bg-gradient-subtle">
@@ -132,7 +147,7 @@ const EducationalOffer = () => {
 
                 {/* CTA */}
                 <Button 
-                  className="w-full bg-gradient-primary group-hover:shadow-glow transition-all duration-300"
+                  className="w-full bg-gradient-primary group-hover:shadow-glow transition-all duration-300 magnetic-btn"
                 >
                   Más información
                 </Button>

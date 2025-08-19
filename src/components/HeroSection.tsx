@@ -45,7 +45,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group"
+                className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group magnetic-btn"
               >
                 Ver oferta educativa
                 <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -53,7 +53,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="group border-primary/20 hover:border-primary hover:bg-primary/5"
+                className="group border-primary/20 hover:border-primary hover:bg-primary/5 magnetic-btn glass"
               >
                 <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
                 Habla con un asesor
@@ -64,16 +64,16 @@ const HeroSection = () => {
           {/* Stats Cards */}
           <div className="lg:justify-self-end animate-slide-up">
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6 max-w-md">
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-elegant hover:shadow-glow transition-all duration-300 group">
-                <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform">33+</div>
+              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">33+</div>
                 <div className="text-sm text-muted-foreground">Años de experiencia</div>
               </div>
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-elegant hover:shadow-glow transition-all duration-300 group">
-                <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform">70+</div>
+              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">70+</div>
                 <div className="text-sm text-muted-foreground">Generaciones egresadas</div>
               </div>
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-elegant hover:shadow-glow transition-all duration-300 group">
-                <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform">30+</div>
+              <div className="glass rounded-xl p-6 shadow-elegant hover:shadow-glow transition-all duration-300 group hover-glow magnetic-btn">
+                <div className="text-3xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">30+</div>
                 <div className="text-sm text-muted-foreground">Convenios en salud</div>
               </div>
             </div>
@@ -82,11 +82,12 @@ const HeroSection = () => {
 
         {/* Additional Info Card */}
         <div className="mt-16 lg:mt-24">
-          <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-6 border border-border/50 shadow-elegant max-w-sm animate-float">
-            <h3 className="font-semibold text-foreground mb-2">Convenios de prácticas</h3>
+          <div className="glass rounded-2xl p-6 shadow-elegant max-w-sm animate-float hover-glow cursor-pointer group">
+            <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">Convenios de prácticas</h3>
             <p className="text-sm text-muted-foreground">
               Ciclos clínicos y servicio social en instituciones de salud
             </p>
+            <div className="mt-3 w-8 h-1 bg-gradient-primary rounded-full group-hover:w-12 transition-all duration-300"></div>
           </div>
         </div>
       </div>

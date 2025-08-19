@@ -51,6 +51,10 @@ All colors MUST be HSL.
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Interactive effects */
+    --glow-intensity: 0.3;
+    --hover-scale: 1.05;
 
     --sidebar-background: 0 0% 98%;
 
@@ -115,5 +119,56 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.3);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+}
+
+@layer components {
+  /* Magnetic button effect */
+  .magnetic-btn {
+    @apply transition-all duration-300 hover:shadow-glow hover:-translate-y-1;
+  }
+  
+  /* Text gradient effect */
+  .gradient-text {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+  }
+  
+  /* Glass morphism */
+  .glass {
+    @apply bg-background/80 backdrop-blur-md border border-border/50;
+  }
+  
+  /* Hover glow effect */
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-glow;
+  }
+  
+  /* Parallax scroll */
+  .parallax {
+    transform: translateZ(0);
+    will-change: transform;
   }
 }

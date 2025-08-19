@@ -19,12 +19,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
-              <span className="text-primary-foreground font-bold text-lg">C</span>
+            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow hover:shadow-elegant transition-all duration-300 hover:scale-105">
+              <span className="text-primary-foreground font-bold text-lg">CUM</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-foreground">Centro Universitario</h1>
-              <p className="text-sm text-muted-foreground -mt-1">Mesoamericano</p>
+              <h1 className="text-lg font-bold text-foreground">Centro Universitario Mesoamericano</h1>
             </div>
           </div>
 
