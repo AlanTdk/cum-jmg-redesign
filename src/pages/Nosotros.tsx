@@ -1,18 +1,18 @@
 import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import EducationalOffer from "@/components/EducationalOffer";
+import AboutSection from "@/components/AboutSection";
+import MissionVisionSection from "@/components/MissionVisionSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const Index = () => {
+const Nosotros = () => {
   return (
     <div className="min-h-screen">
       <SmoothScroll />
       <Header />
-      <main>
-        <HeroSection />
-        <EducationalOffer />
+      <main className="pt-16">
+        <AboutSection />
+        <MissionVisionSection />
       </main>
       <Footer />
       <ScrollToTop />
@@ -20,4 +20,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Nosotros;
