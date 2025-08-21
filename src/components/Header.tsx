@@ -6,10 +6,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
+    { name: "Nosotros", href: "#nosotros" },
     { name: "Oferta educativa", href: "#oferta" },
-    { name: "Alumnos", href: "#alumnos" },
     { name: "Campus", href: "#campus" },
-    { name: "Convocatorias", href: "#convocatorias" },
     { name: "Contacto", href: "#contacto" },
   ];
 

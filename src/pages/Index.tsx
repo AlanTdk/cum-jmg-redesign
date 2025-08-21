@@ -1,5 +1,8 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import MissionVisionSection from "@/components/MissionVisionSection";
+import RectorMessageSection from "@/components/RectorMessageSection";
 import EducationalOffer from "@/components/EducationalOffer";
 import CampusSection from "@/components/CampusSection";
 import ContactSection from "@/components/ContactSection";
@@ -14,6 +17,9 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <AboutSection />
+        <MissionVisionSection />
+        <RectorMessageSection />
         <EducationalOffer />
         <CampusSection />
         <ContactSection />
