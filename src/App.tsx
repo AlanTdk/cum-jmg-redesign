@@ -12,6 +12,8 @@ import CampusVillaflores from "./pages/CampusVillaflores";
 import Estudiantes from "./pages/Estudiantes";
 import EstudiantesSubPage from "./pages/EstudiantesSubPage";
 import Contacto from "./pages/Contacto";
+import Egresados from "./pages/Egresados";
+import BibliotecaVirtual from "./pages/BibliotecaVirtual";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/campus/villaflores" element={<CampusVillaflores />} />
           <Route path="/estudiantes" element={<Estudiantes />} />
           <Route path="/estudiantes/*" element={<EstudiantesSubPage />} />
+          <Route path="/egresados" element={<Egresados />} />
+          <Route path="/biblioteca-virtual" element={<BibliotecaVirtual />} />
           <Route path="/contacto" element={<Contacto />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

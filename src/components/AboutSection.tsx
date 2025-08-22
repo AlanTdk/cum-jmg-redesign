@@ -38,14 +38,14 @@ const AboutSection = () => {
             className="space-y-6"
           >
             <h4 className="text-2xl font-bold text-primary mb-4">¿Quiénes somos?</h4>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed text-justify">
               Somos una institución que fomenta los valores a cada uno de los alumnos. 
               Fomentamos los valores y la Disciplina hacia nuestros estudiantes y así poder 
               proporcionar el entusiasmo para con ellos. La educación es fundamental para la 
               felicidad social; es el principio en el que descansan la libertad y el 
               engrandecimiento de los pueblos.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed text-justify">
               El compromiso con la Sociedad y con la propia institución conduce al CUM a 
               mantener activos una serie de mecanismos que garantizan la calidad de servicios, 
               centros y profesores.
@@ -89,7 +89,7 @@ const AboutSection = () => {
           viewport={{ once: true }}
           className="glass p-8 rounded-2xl"
         >
-          <p className="text-muted-foreground leading-relaxed text-center max-w-4xl mx-auto">
+          <p className="text-muted-foreground leading-relaxed text-justify max-w-4xl mx-auto">
             El Centro Universitario Mesoamericano es una universidad competitiva, una institución 
             dinámica, emprendedora y conectada con su entorno. Las políticas de gestión de la 
             calidad en todos los ámbitos de la universidad, el desarrollo del plan estratégico y 

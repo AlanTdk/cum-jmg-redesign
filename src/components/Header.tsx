@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,7 +48,7 @@ const Header = () => {
     },
     { 
       name: "Biblioteca Virtual", 
-      href: "/biblioteca",
+      href: "/biblioteca-virtual",
       dropdown: null
     },
     { 
@@ -82,14 +83,19 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center justify-center space-x-8">
             {navItems.map((item) => (
-              <div key={item.name} className="relative group">
+              <div 
+                key={item.name} 
+                className="relative group"
+                onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
+                onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+              >
                 {item.dropdown ? (
                   <div className="relative">
-                    <button
-                      onClick={() => handleDropdownToggle(item.name)}
-                      className={`flex items-center space-x-1 px-3 py-2 rounded-md text-foreground hover:text-primary transition-colors duration-300 ${
+                    <motion.button
+                      whileHover={{ y: -1 }}
+                      className={`flex items-center space-x-1 px-4 py-3 rounded-md text-foreground hover:text-primary transition-colors duration-300 ${
                         isActiveRoute(item.href) ? 'text-primary font-medium' : ''
                       }`}
                     >
@@ -97,11 +103,16 @@ const Header = () => {
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
                         activeDropdown === item.name ? 'rotate-180' : ''
                       }`} />
-                    </button>
+                    </motion.button>
                     
                     {/* Dropdown Menu */}
                     {activeDropdown === item.name && (
-                      <div className="absolute top-full left-0 mt-2 w-56 bg-background/98 backdrop-blur-md border border-border rounded-xl shadow-elegant z-50 py-2">
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-1 w-56 bg-background border border-border rounded-xl shadow-elegant z-50 py-2 backdrop-blur-md"
+                      >
                         {item.dropdown.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.name}
@@ -112,26 +123,50 @@ const Header = () => {
                             {dropdownItem.name}
                           </Link>
                         ))}
-                      </div>
+                      </motion.div>
                     )}
                   </div>
                 ) : (
-                  <Link
-                    to={item.href}
-                    className={`px-3 py-2 rounded-md text-foreground hover:text-primary transition-colors duration-300 relative group ${
-                      isActiveRoute(item.href) ? 'text-primary font-medium' : ''
-                    }`}
-                  >
-                    {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
+                  <motion.div whileHover={{ y: -1 }}>
+                    <Link
+                      to={item.href}
+                      className={`block px-4 py-3 rounded-md text-foreground hover:text-primary transition-colors duration-300 relative ${
+                        isActiveRoute(item.href) ? 'text-primary font-medium' : ''
+                      }`}
+                    >
+                      {item.name}
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+                  </motion.div>
                 )}
               </div>
             ))}
           </nav>
 
-          {/* CTA Buttons */}
+          {/* Social Media & CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-3 mr-4">
+              <motion.a 
+                href="https://www.facebook.com/CUMTuxtla" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
+              >
+                <Facebook size={16} />
+              </motion.a>
+              <motion.a 
+                href="https://www.instagram.com/cumtuxtla/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white hover:from-purple-600 hover:to-pink-600 transition-all"
+              >
+                <Instagram size={16} />
+              </motion.a>
+            </div>
             <Button variant="ghost" className="text-foreground hover:text-primary bg-transparent hover:bg-primary/5">
               Información
             </Button>

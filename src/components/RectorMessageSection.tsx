@@ -69,34 +69,34 @@ const RectorMessageSection = () => {
               viewport={{ once: true }}
               className="space-y-6 text-muted-foreground leading-relaxed"
             >
-              <p className="text-lg">
+              <p className="text-lg text-justify">
                 <strong className="text-primary">Estimados estudiantes de nuevo ingreso...</strong>
               </p>
               
-              <p>
+              <p className="text-justify">
                 Le doy la más cordial bienvenida, a nuestra gran institución: el Centro 
                 Universitario Mesoamericano Joaquín Miguel Gutiérrez.
               </p>
 
-              <p>
+              <p className="text-justify">
                 A 33 años de haber iniciado este proyecto educativo, con más de 70 generaciones 
                 de jóvenes que han pasado por nuestras aulas y cumpliendo con nuestro espíritu 
                 de transformación permanente, con orgullo y una gran satisfacción, presento a 
                 todos ustedes la página web de nuestra institución educativa.
               </p>
 
-              <blockquote className="border-l-4 border-primary pl-6 italic text-primary bg-primary/5 p-4 rounded-r-lg">
+              <blockquote className="border-l-4 border-primary pl-6 italic text-primary bg-primary/5 p-4 rounded-r-lg text-justify">
                 "Los tiempos que vivimos, nos exigen con una visión de largo alcance y profundo 
                 análisis, esforzarnos en la sólida integración de nuestra comunidad educativa"
               </blockquote>
 
-              <p>
+              <p className="text-justify">
                 Hoy, les ofrecemos una amplia oferta educativa, que les asegura las herramientas 
                 necesarias, para enfrentar un mundo globalizado de competencia, que conquistarán 
                 recibiendo una preparación de excelencia.
               </p>
 
-              <p>
+              <p className="text-justify">
                 Con sólidas posibilidades de éxito, en un mercado de trabajo exigente y de 
                 especialidad, se sentirán orgullosos de pertenecer a nuestra institución. Como 
                 lo están, los egresados de nuestra universidad, que hoy trabajan en 
