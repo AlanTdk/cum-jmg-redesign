@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import cumLogo from "@/assets/cum-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
 
   const navItems = [
@@ -62,25 +64,57 @@ const Header = () => {
     setActiveDropdown(activeDropdown === itemName ? null : itemName);
   };
 
+  const handleMouseEnter = (itemName: string) => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+    }
+    setActiveDropdown(itemName);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150); // Small delay to prevent flickering
+    setHoverTimeout(timeout);
+  };
+
   const isActiveRoute = (href: string) => {
     return location.pathname === href;
   };
 
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout) {
+        clearTimeout(hoverTimeout);
+      }
+    };
+  }, [hoverTimeout]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-elegant">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow hover:shadow-elegant transition-all duration-300 hover:scale-105">
-              <span className="text-primary-foreground font-bold text-lg">CUM</span>
-            </div>
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                Centro Universitario Mesoamericano
-              </h1>
-            </div>
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/" className="flex items-center space-x-4 group">
+              <div className="w-14 h-14 rounded-full bg-white shadow-elegant hover:shadow-glow transition-all duration-300 flex items-center justify-center p-1">
+                <img 
+                  src={cumLogo} 
+                  alt="Centro Universitario Mesoamericano" 
+                  className="w-full h-full object-contain rounded-full"
+                />
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+                  Centro Universitario<br />
+                  <span className="text-primary">Mesoamericano</span>
+                </h1>
+              </div>
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center justify-center space-x-8">
@@ -88,8 +122,8 @@ const Header = () => {
               <div 
                 key={item.name} 
                 className="relative group"
-                onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
-                onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+                onMouseEnter={() => item.dropdown && handleMouseEnter(item.name)}
+                onMouseLeave={() => item.dropdown && handleMouseLeave()}
               >
                 {item.dropdown ? (
                   <div className="relative">
@@ -106,25 +140,38 @@ const Header = () => {
                     </motion.button>
                     
                     {/* Dropdown Menu */}
-                    {activeDropdown === item.name && (
-                      <motion.div 
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-1 w-56 bg-background border border-border rounded-xl shadow-elegant z-50 py-2 backdrop-blur-md"
-                      >
-                        {item.dropdown.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.name}
-                            to={dropdownItem.href}
-                            className="block px-4 py-3 text-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            {dropdownItem.name}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
+                    <AnimatePresence>
+                      {activeDropdown === item.name && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full left-0 mt-2 w-56 bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-elegant z-50 py-2"
+                          onMouseEnter={() => {
+                            if (hoverTimeout) clearTimeout(hoverTimeout);
+                          }}
+                          onMouseLeave={handleMouseLeave}
+                        >
+                          {item.dropdown.map((dropdownItem, idx) => (
+                            <motion.div
+                              key={dropdownItem.name}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05 }}
+                            >
+                              <Link
+                                to={dropdownItem.href}
+                                className="block px-4 py-3 text-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 rounded-lg mx-2"
+                                onClick={() => setActiveDropdown(null)}
+                              >
+                                {dropdownItem.name}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 ) : (
                   <motion.div whileHover={{ y: -1 }}>
@@ -185,8 +232,15 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden absolute top-16 left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border animate-fade-in shadow-elegant">
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden absolute top-20 left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border shadow-elegant"
+            >
             <nav className="flex flex-col px-4 py-6">
               {navItems.map((item) => (
                 <div key={item.name} className="mb-2">
@@ -239,8 +293,9 @@ const Header = () => {
                 </Button>
               </div>
             </nav>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
       {/* Overlay for closing dropdowns */}

@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Calendar } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Calendar, User, AtSign, Phone as PhoneIcon, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,16 @@ const ContactSection = () => {
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const formTips = {
+    name: "Escribe tu nombre completo como aparece en tus documentos oficiales",
+    email: "Asegúrate de usar un email válido para recibir información importante",
+    phone: "Incluye tu código de área para un mejor contacto",
+    program: "Especifica el programa académico que te interesa",
+    message: "Comparte cualquier pregunta específica o información adicional"
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,95 +163,231 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="border-border/50 shadow-elegant animate-slide-up" style={{ animationDelay: "0.3s" }}>
-              <CardHeader>
-                <CardTitle className="text-2xl">Envíanos un mensaje</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Nombre completo *</label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Tu nombre completo"
-                        required
-                        className="transition-all duration-300 focus:shadow-glow"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Email *</label>
-                      <Input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="tu@email.com"
-                        required
-                        className="transition-all duration-300 focus:shadow-glow"
-                      />
-                    </div>
-                  </div>
+          <div className="lg:col-span-2 relative">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <Card className="border-border/50 shadow-elegant">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center">
+                    <MessageSquare className="w-6 h-6 mr-2 text-primary" />
+                    Envíanos un mensaje
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                    {/* Form */}
+                    <div className="xl:col-span-2">
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <motion.div 
+                            className="space-y-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                          >
+                            <label className="text-sm font-medium flex items-center">
+                              <User className="w-4 h-4 mr-2 text-primary" />
+                              Nombre completo *
+                            </label>
+                            <div className="relative">
+                              <Input
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedField('name')}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder="Tu nombre completo"
+                                required
+                                className="transition-all duration-300 focus:shadow-glow pl-10"
+                              />
+                              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            </div>
+                          </motion.div>
+                          <motion.div 
+                            className="space-y-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            <label className="text-sm font-medium flex items-center">
+                              <AtSign className="w-4 h-4 mr-2 text-primary" />
+                              Email *
+                            </label>
+                            <div className="relative">
+                              <Input
+                                name="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedField('email')}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder="tu@email.com"
+                                required
+                                className="transition-all duration-300 focus:shadow-glow pl-10"
+                              />
+                              <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            </div>
+                          </motion.div>
+                        </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Teléfono</label>
-                      <Input
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="961 123 4567"
-                        className="transition-all duration-300 focus:shadow-glow"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Programa de interés</label>
-                      <Input
-                        name="program"
-                        value={formData.program}
-                        onChange={handleChange}
-                        placeholder="Ej: Licenciatura en Enfermería"
-                        className="transition-all duration-300 focus:shadow-glow"
-                      />
-                    </div>
-                  </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <motion.div 
+                            className="space-y-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            <label className="text-sm font-medium flex items-center">
+                              <PhoneIcon className="w-4 h-4 mr-2 text-primary" />
+                              Teléfono
+                            </label>
+                            <div className="relative">
+                              <Input
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedField('phone')}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder="961 123 4567"
+                                className="transition-all duration-300 focus:shadow-glow pl-10"
+                              />
+                              <PhoneIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            </div>
+                          </motion.div>
+                          <motion.div 
+                            className="space-y-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                          >
+                            <label className="text-sm font-medium flex items-center">
+                              <MessageCircle className="w-4 h-4 mr-2 text-primary" />
+                              Programa de interés
+                            </label>
+                            <div className="relative">
+                              <Input
+                                name="program"
+                                value={formData.program}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedField('program')}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder="Ej: Licenciatura en Enfermería"
+                                className="transition-all duration-300 focus:shadow-glow pl-10"
+                              />
+                              <MessageCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            </div>
+                          </motion.div>
+                        </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Mensaje *</label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Cuéntanos cómo podemos ayudarte..."
-                      rows={5}
-                      required
-                      className="transition-all duration-300 focus:shadow-glow resize-none"
-                    />
-                  </div>
+                        <motion.div 
+                          className="space-y-2"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                        >
+                          <label className="text-sm font-medium flex items-center">
+                            <MessageSquare className="w-4 h-4 mr-2 text-primary" />
+                            Mensaje *
+                          </label>
+                          <div className="relative">
+                            <Textarea
+                              name="message"
+                              value={formData.message}
+                              onChange={handleChange}
+                              onFocus={() => setFocusedField('message')}
+                              onBlur={() => setFocusedField(null)}
+                              placeholder="Cuéntanos cómo podemos ayudarte..."
+                              rows={5}
+                              required
+                              className="transition-all duration-300 focus:shadow-glow resize-none pl-10 pt-3"
+                            />
+                            <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                          </div>
+                        </motion.div>
 
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 group"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center">
-                        <div className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full animate-spin mr-2"></div>
-                        Enviando...
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                        >
+                          <Button 
+                            type="submit" 
+                            className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 group text-lg py-3"
+                            disabled={isSubmitting}
+                          >
+                            {isSubmitting ? (
+                              <div className="flex items-center">
+                                <div className="w-5 h-5 border-2 border-background/30 border-t-background rounded-full animate-spin mr-2"></div>
+                                Enviando...
+                              </div>
+                            ) : (
+                              <div className="flex items-center">
+                                <Send className="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                                Enviar mensaje
+                              </div>
+                            )}
+                          </Button>
+                        </motion.div>
+                      </form>
+                    </div>
+
+                    {/* Form Tips */}
+                    <div className="xl:col-span-1">
+                      <div className="sticky top-8">
+                        <h3 className="text-lg font-semibold mb-4 flex items-center">
+                          <MessageCircle className="w-5 h-5 mr-2 text-primary" />
+                          Consejos para llenar el formulario
+                        </h3>
+                        <AnimatePresence mode="wait">
+                          {focusedField && (
+                            <motion.div
+                              key={focusedField}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              className="bg-primary/5 border border-primary/20 rounded-lg p-4"
+                            >
+                              <p className="text-sm text-muted-foreground">
+                                {formTips[focusedField as keyof typeof formTips]}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        {!focusedField && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="space-y-3"
+                          >
+                            <div className="flex items-start space-x-3 p-3 rounded-lg bg-muted/50">
+                              <User className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
+                              <p className="text-sm text-muted-foreground">
+                                Completa todos los campos obligatorios marcados con *
+                              </p>
+                            </div>
+                            <div className="flex items-start space-x-3 p-3 rounded-lg bg-muted/50">
+                              <PhoneIcon className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
+                              <p className="text-sm text-muted-foreground">
+                                Te contactaremos en un plazo máximo de 24 horas
+                              </p>
+                            </div>
+                            <div className="flex items-start space-x-3 p-3 rounded-lg bg-muted/50">
+                              <MessageSquare className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
+                              <p className="text-sm text-muted-foreground">
+                                Sé específico en tu mensaje para brindarte mejor atención
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
                       </div>
-                    ) : (
-                      <div className="flex items-center">
-                        <Send className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                        Enviar mensaje
-                      </div>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </div>
