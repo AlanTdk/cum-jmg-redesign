@@ -102,8 +102,8 @@ const Header = () => {
             <Link to="/" className="flex items-center space-x-4 group">
               <div className="w-14 h-14 rounded-full bg-white shadow-elegant hover:shadow-glow transition-all duration-300 flex items-center justify-center p-1">
                 <img 
-                  src="/lovable-uploads/68ac3975-d475-4e26-8895-89f74c1b5cba.png" 
-                  alt="Centro Universitario Mesoamericano" 
+                  src="/lovable-uploads/dd10b29a-e37c-46ef-8f4e-34ee91718eb4.png" 
+                  alt="Centro Universitario Mesoamericano Joaquín Miguel Gutiérrez" 
                   className="w-full h-full object-contain rounded-full"
                 />
               </div>

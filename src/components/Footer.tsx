@@ -83,8 +83,8 @@ const Footer = () => {
                   }}
                 >
                   <img 
-                    src="/lovable-uploads/68ac3975-d475-4e26-8895-89f74c1b5cba.png" 
-                    alt="Centro Universitario Mesoamericano Logo" 
+                    src="/lovable-uploads/dd10b29a-e37c-46ef-8f4e-34ee91718eb4.png" 
+                    alt="Centro Universitario Mesoamericano Joaquín Miguel Gutiérrez" 
                     className="w-full h-full object-contain rounded-full"
                   />
                 </motion.div>
